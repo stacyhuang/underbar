@@ -112,15 +112,9 @@
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     var newCollection = [];
-    if(Array.isArray(collection)){
-    	for(var i=0; i<collection.length; i++){
-    		newCollection.push(iterator(collection[i], i, collection));
-    	}
-    }else{
-    	for(var key in collection){
-    		newCollection.push(iterator(collection[key], key, collection));
-    	}
-    }
+    _.each(collection,function(value, index, collection){
+    	newCollection.push(iterator(value, index, collection))
+    })
     return newCollection;
   };
 
