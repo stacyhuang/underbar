@@ -205,7 +205,18 @@
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
-  };
+    if(iterator == null){
+        iterator = _.identity;
+    }   
+    var reverse = function(x){
+      return !iterator(x);
+    };
+    if(!_.every(collection, reverse)){
+      return true;
+    }else{
+      return false;
+    }
+};
 
 
   /**
