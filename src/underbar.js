@@ -206,7 +206,7 @@
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
     if(iterator == null){
-        iterator = _.identity;
+      iterator = _.identity;
     }   
     var reverse = function(x){
       return !iterator(x);
@@ -238,7 +238,14 @@
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
-  };
+  var sources = Array.prototype.slice.call(arguments,1);
+  for(var i=0; i<sources.length; i++){
+    for(var key in sources[i]){
+      obj[key] = sources[i][key];
+    }
+  }
+  return obj;
+};
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
