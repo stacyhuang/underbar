@@ -238,10 +238,9 @@
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
-    var sources = Array.prototype.slice.call(arguments,1);
-    for(var i=0; i<sources.length; i++){
-      for(var key in sources[i]){
-        obj[key] = sources[i][key];
+    for(var i=1; i<arguments.length; i++){
+      for(var key in arguments[i]){
+        obj[key] = arguments[i][key];
       }
     }
     return obj;
@@ -250,11 +249,10 @@
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
-    var sources = Array.prototype.slice.call(arguments,1);
-    for(var i=0; i<sources.length; i++){
-      for(var key in sources[i]){
+    for(var i=1; i<arguments.length; i++){
+      for(var key in arguments[i]){
         if(obj[key]==undefined){
-          obj[key] = sources[i][key];
+          obj[key] = arguments[i][key];
         }
       }
     }
