@@ -173,7 +173,7 @@
     // TIP: Many iteration problems can be most easily expressed in
     // terms of reduce(). Here's a freebie to demonstrate!
     return _.reduce(collection, function(wasFound, item) {
-      if (wasFound) {
+      if(wasFound) {
         return true;
       }
       return item === target;
@@ -182,16 +182,12 @@
 
 
   // Determine whether all of the elements match a truth test.
-  _.every = function(collection, iterator) {
-    // TIP: Try re-using reduce() here.
-    return _.reduce(collection, function(wasMatched, item){
+  _.every = function(collection, iterator){
+    return _.reduce(collection, function(accumulator, item){
       if(iterator == null){
         iterator = _.identity;
       }
-      if(!wasMatched){
-        return false;
-      }
-      if(iterator(item) == undefined && !item){
+      if(!accumulator){
         return false;
       }
       if(!iterator(item)){
@@ -357,6 +353,14 @@
   // Calls the method named by functionOrKey on each value in the list.
   // Note: You will need to learn a bit about .apply to complete this.
   _.invoke = function(collection, functionOrKey, args) {
+    var arg = Array.prototype.slice.call(arguments, 2);
+    return _.map(collection, function(item){
+      if(typeof functionOrKey === 'function'){
+        return functionOrKey.apply(item, arg);
+      }else{
+        return item[functionOrKey].apply(item, arg);
+      }
+    });
   };
 
   // Sort the object's values by a criterion produced by an iterator.
